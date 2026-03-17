@@ -1,0 +1,67 @@
+{
+  "runs": 50,
+  "benchProfile": "both",
+  "passRate_basic": 1.0,
+  "metrics": {
+    "grounding_delta_avgCitations_ci95": {
+      "n": 50,
+      "mean": 2.0,
+      "lo": 2.0,
+      "hi": 2.0,
+      "std": 0.0,
+      "se": 0.0
+    },
+    "grounding_effectSize": {
+      "n": 50,
+      "dText": "INF",
+      "note": "std(delta)=0 and mean(delta)>0"
+    },
+    "consistency_delta_avgSelected_ci95": {
+      "n": 50,
+      "mean": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "std": 0.0,
+      "se": 0.0
+    },
+    "consistency_effectSize": {
+      "n": 50,
+      "dText": "INF",
+      "note": "std(delta)=0 and mean(delta)>0"
+    },
+    "verification_delta_failRate_ci95": {
+      "n": 50,
+      "mean": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "std": 0.0,
+      "se": 0.0
+    },
+    "verification_effectSize_failRate": {
+      "n": 50,
+      "dText": "0",
+      "note": "std(delta)=0 and mean(delta)=0"
+    },
+    "verification_delta_weightedFailScore_ci95": {
+      "n": 50,
+      "mean": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "std": 0.0,
+      "se": 0.0
+    },
+    "verification_effectSize_weighted": {
+      "n": 50,
+      "dText": "0",
+      "note": "std(delta)=0 and mean(delta)=0"
+    }
+  },
+  "verdict": {
+    "conflict": {
+      "grounding_win": true,
+      "consistency_win": true,
+      "hallucination_win_failRate": false,
+      "hallucination_win_weighted": false
+    }
+  }
+}

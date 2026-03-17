@@ -1,0 +1,16 @@
+{
+  "name": "orchestra-root",
+  "private": true,
+  "scripts": {
+    "verify:chat": "pwsh -File .\\tools\\verify-chat.ps1",
+    "verify:orx": "powershell -ExecutionPolicy Bypass -File ./scripts/orx-verify.ps1",
+    "build:server": "cd server && npm run build",
+    "build:ui": "cd ui && npm run build",
+    "build": "npm run build:ui && npm run build:server",
+    "typecheck:server": "cd server && npm run typecheck",
+    "verify:inject": "pwsh -File .\\tools\\verify-inject-log.ps1",
+    "build:core": "cd core && npm run build",
+    "verify": "npm run typecheck:server && npm run verify:chat && npm run verify:orchestra && npm run verify:inject",
+    "verify:orchestra": "pwsh -File .\\tools\\verify-orchestra.ps1"
+  }
+}

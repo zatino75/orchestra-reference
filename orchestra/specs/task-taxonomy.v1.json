@@ -1,0 +1,21 @@
+{
+ "version":"v1",
+ "tasks":[
+  "dialogue",
+  "reasoning",
+  "code",
+  "evidence",
+  "research",
+  "document",
+  "analysis",
+  "planning",
+  "design",
+  "image",
+  "video",
+  "slides",
+  "legal_review",
+  "finance",
+  "product_development",
+  "data_analysis"
+ ]
+}

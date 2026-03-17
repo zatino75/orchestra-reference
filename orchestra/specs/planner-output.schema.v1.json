@@ -1,0 +1,429 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-orchestra.local/schemas/planner-output.schema.v1.json",
+  "title": "AI Orchestra Planner Output v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "plan_id",
+    "request_id",
+    "project_id",
+    "thread_id",
+    "planner_version",
+    "task",
+    "goal",
+    "assumptions",
+    "constraints",
+    "decomposition",
+    "routing_hints",
+    "evidence_plan",
+    "success_criteria",
+    "final_answer_strategy"
+  ],
+  "properties": {
+    "plan_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "request_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "thread_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "planner_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "task_type",
+        "user_intent",
+        "complexity",
+        "risk_level",
+        "requires_latest_info",
+        "requires_evidence",
+        "requires_citations",
+        "requires_artifact",
+        "artifact_types"
+      ],
+      "properties": {
+        "task_type": {
+          "type": "string",
+          "enum": [
+            "dialogue",
+            "reasoning",
+            "code",
+            "evidence",
+            "research",
+            "document",
+            "analysis",
+            "planning",
+            "design",
+            "image",
+            "video",
+            "slides",
+            "legal_review",
+            "finance",
+            "product_development",
+            "data_analysis"
+          ]
+        },
+        "user_intent": {
+          "type": "string"
+        },
+        "complexity": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "very_high"
+          ]
+        },
+        "risk_level": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "requires_latest_info": {
+          "type": "boolean"
+        },
+        "requires_evidence": {
+          "type": "boolean"
+        },
+        "requires_citations": {
+          "type": "boolean"
+        },
+        "requires_artifact": {
+          "type": "boolean"
+        },
+        "artifact_types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "none",
+              "answer",
+              "report",
+              "table",
+              "spreadsheet",
+              "document",
+              "code",
+              "design",
+              "image",
+              "video",
+              "slides",
+              "dataset",
+              "memo",
+              "legal_memo",
+              "financial_model"
+            ]
+          }
+        }
+      }
+    },
+    "goal": {
+      "type": "string"
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/assumption"
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/constraint"
+      }
+    },
+    "decomposition": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/planned_unit"
+      }
+    },
+    "routing_hints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/routing_hint"
+      }
+    },
+    "evidence_plan": {
+      "$ref": "#/$defs/evidence_plan"
+    },
+    "success_criteria": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "final_answer_strategy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "must_include"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "single_pass",
+            "judge_synthesized",
+            "artifact_first",
+            "evidence_first"
+          ]
+        },
+        "must_include": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "direct_answer",
+              "summary",
+              "citations",
+              "confidence",
+              "artifacts",
+              "open_questions",
+              "follow_up_actions"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "assumption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assumption_id",
+        "text",
+        "impact"
+      ],
+      "properties": {
+        "assumption_id": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "impact": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        }
+      }
+    },
+    "constraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "constraint_id",
+        "type",
+        "value"
+      ],
+      "properties": {
+        "constraint_id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "time",
+            "cost",
+            "provider",
+            "tooling",
+            "format",
+            "safety",
+            "user_preference",
+            "artifact"
+          ]
+        },
+        "value": {}
+      }
+    },
+    "planned_unit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit_id",
+        "name",
+        "purpose",
+        "task_type",
+        "mode",
+        "depends_on",
+        "outputs",
+        "acceptance_checks"
+      ],
+      "properties": {
+        "unit_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "task_type": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "single",
+            "parallel",
+            "sequential",
+            "retrieval",
+            "verification",
+            "judge",
+            "artifact_generation"
+          ]
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "candidate_roles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "planner",
+              "executor",
+              "retriever",
+              "researcher",
+              "coder",
+              "designer",
+              "claim_extractor",
+              "verifier",
+              "judge",
+              "finalizer"
+            ]
+          }
+        },
+        "preferred_providers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "openai",
+              "anthropic",
+              "google",
+              "perplexity",
+              "runway",
+              "midjourney",
+              "internal"
+            ]
+          }
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "raw_output",
+              "claims",
+              "evidence",
+              "conflicts",
+              "decision",
+              "artifact",
+              "final_answer_fragment"
+            ]
+          }
+        },
+        "acceptance_checks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "routing_hint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "value"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "prefer_provider",
+            "prefer_model",
+            "require_parallel",
+            "require_judge",
+            "require_verification",
+            "require_latest_info",
+            "cost_cap",
+            "latency_cap_ms"
+          ]
+        },
+        "value": {}
+      }
+    },
+    "evidence_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "freshness_days_max",
+        "minimum_source_count",
+        "preferred_source_types"
+      ],
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "freshness_days_max": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "minimum_source_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "preferred_source_types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "web",
+              "internal_doc",
+              "tool_result",
+              "code_execution",
+              "user_file",
+              "provider_output",
+              "manual_note"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

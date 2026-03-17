@@ -1,0 +1,17 @@
+{
+ "version":"v1",
+ "metrics":[
+  "answer_accuracy",
+  "evidence_quality",
+  "citation_quality",
+  "conflict_detection",
+  "conflict_resolution",
+  "final_answer_consistency",
+  "artifact_usefulness",
+  "code_success_rate",
+  "freshness_handling",
+  "latency",
+  "cost_efficiency",
+  "user_preference"
+ ]
+}

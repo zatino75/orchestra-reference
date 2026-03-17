@@ -1,0 +1,30 @@
+{
+  "version": "mvp-2",
+  "notes": "orx benchmark testset (MVP-2). Includes explicit CLAIM blocks to guarantee conflict/judge/decision pipeline.",
+  "cases": [
+    {
+      "id": "q01_seed_positive",
+      "prompt": "아래 CLAIM_A는 프로젝트에 '사실 주장'으로 기록되어야 합니다. 다른 설명 없이 CLAIM_A만 그대로 출력하세요.\n\nCLAIM_A\nentity: bench_mvp\nsubject: vite_proxy_api\npredicate: target\nobject: http://localhost:8000\npolarity: positive\nconfidence: 0.90\n"
+    },
+    {
+      "id": "q02_flip_negative",
+      "prompt": "아래 CLAIM_B는 직전 주장과 의도적으로 충돌합니다. 다른 설명 없이 CLAIM_B만 그대로 출력하세요.\n\nCLAIM_B\nentity: bench_mvp\nsubject: vite_proxy_api\npredicate: target\nobject: http://localhost:8000\npolarity: negative\nconfidence: 0.90\n"
+    },
+    {
+      "id": "q03",
+      "prompt": "AI ORCHESTRA(ochastra) 프로젝트에서 Evidence/Claims/Decisions/Derived의 정의를 한 문장씩만 요약해줘."
+    },
+    {
+      "id": "q04",
+      "prompt": "verify 모드가 왜 req_*.json을 남기면 안 되는지, 리그레션 관점에서 핵심만 3줄로 설명해줘."
+    },
+    {
+      "id": "q05",
+      "prompt": "포트 8000/5173 고정 원칙이 필요한 이유를 운영 리스크 관점에서 4개 항목으로 정리해줘."
+    },
+    {
+      "id": "q06",
+      "prompt": "vite proxy 설정에서 /api -> http://localhost:8000 이 보장되지 않을 때 발생하는 장애를 3단계로 써줘."
+    }
+  ]
+}

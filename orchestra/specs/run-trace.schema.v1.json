@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-orchestra.local/schemas/run-trace.schema.v1.json",
+  "title": "AI Orchestra Run Trace v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "trace_id",
+    "job_id",
+    "request_id",
+    "project_id",
+    "thread_id",
+    "events"
+  ],
+  "properties": {
+    "trace_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "job_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "request_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "thread_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/trace_event"
+      }
+    }
+  },
+  "$defs": {
+    "trace_event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_id",
+        "timestamp",
+        "level",
+        "event_type",
+        "unit_id",
+        "message"
+      ],
+      "properties": {
+        "event_id": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "level": {
+          "type": "string",
+          "enum": [
+            "debug",
+            "info",
+            "warn",
+            "error"
+          ]
+        },
+        "event_type": {
+          "type": "string",
+          "enum": [
+            "plan_created",
+            "job_created",
+            "unit_queued",
+            "unit_started",
+            "provider_selected",
+            "model_selected",
+            "retrieval_started",
+            "retrieval_completed",
+            "provider_call_started",
+            "provider_call_completed",
+            "claim_extraction_started",
+            "claim_extraction_completed",
+            "conflict_detected",
+            "conflict_resolved",
+            "verification_started",
+            "verification_completed",
+            "judge_started",
+            "judge_completed",
+            "artifact_created",
+            "final_answer_started",
+            "final_answer_completed",
+            "retry_scheduled",
+            "fallback_selected",
+            "unit_failed",
+            "job_completed"
+          ]
+        },
+        "unit_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "provider": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "attempt": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

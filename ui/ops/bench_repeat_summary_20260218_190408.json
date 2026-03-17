@@ -1,0 +1,17 @@
+{
+  "runs": 20,
+  "benchProfile": "both",
+  "passRate": 1.0,
+  "conflict": {
+    "orchJA_mean": 50.0,
+    "orchJA_std": 0.0,
+    "wct_mean": 50.0,
+    "wct_std": 0.0
+  },
+  "normal": {
+    "orchJA_mean": 0.0,
+    "orchJA_std": 0.0,
+    "wct_mean": 0.0,
+    "wct_std": 0.0
+  }
+}

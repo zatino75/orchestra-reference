@@ -1,0 +1,48 @@
+{
+  "version": "2026-01-30",
+  "project": "orchestra",
+  "decisions": [
+    {
+      "id": "slot_one_file",
+      "title": "SLOT = 1 파일",
+      "status": "confirmed",
+      "notes": "긴 코드는 파일 단위로만 전달/수정. 부분 패치 금지. 사용자 '다음'에만 다음 SLOT 진행."
+    },
+    {
+      "id": "write_atomic_only",
+      "title": "모든 파일 수정은 write_atomic.ps1로 전체 덮어쓰기",
+      "status": "confirmed",
+      "notes": "Atomic 저장만 사용. -TargetPath 사용. 절대 -Path 아님."
+    },
+    {
+      "id": "api_chat_single",
+      "title": "UI 호출은 /api/chat 단일",
+      "status": "confirmed",
+      "notes": "Vite proxy 사용. 8000 직결 제거. CORS/OPTIONS 최소화."
+    },
+    {
+      "id": "pending_rule_150ms",
+      "title": "Pending 표시는 150ms 이상일 때만",
+      "status": "confirmed",
+      "notes": "빠른 응답은 pending 버블 자체를 안 보이게."
+    },
+    {
+      "id": "no_dots_animation",
+      "title": "dots 애니메이션 제거",
+      "status": "confirmed",
+      "notes": "타이머 부하 0. pending 문구는 고정 텍스트."
+    },
+    {
+      "id": "message_key_stable",
+      "title": "메시지 key 안정화",
+      "status": "confirmed",
+      "notes": "Math.random 제거. stableHash 기반 결정적 key."
+    },
+    {
+      "id": "response_schema",
+      "title": "Core 응답 스키마 고정",
+      "status": "confirmed",
+      "notes": "항상 { text: string, meta: { kind, mode, req_id, thread_id, ms } }"
+    }
+  ]
+}

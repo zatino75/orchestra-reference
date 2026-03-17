@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI Orchestra Response Contract v1",
+  "type": "object",
+  "required": [
+    "request_id",
+    "session_id",
+    "project_id",
+    "thread_id",
+    "run_id",
+    "task",
+    "claims",
+    "evidence",
+    "conflicts",
+    "decisions",
+    "final_answer",
+    "confidence",
+    "metrics",
+    "status"
+  ],
+  "properties": {
+    "request_id": {"type":"string"},
+    "session_id": {"type":"string"},
+    "project_id": {"type":"string"},
+    "thread_id": {"type":"string"},
+    "run_id": {"type":"string"},
+
+    "task":{
+      "type":"object",
+      "properties":{
+        "task_type":{"type":"string"},
+        "requires_latest_info":{"type":"boolean"},
+        "requires_evidence":{"type":"boolean"},
+        "complexity":{"type":"string"}
+      }
+    },
+
+    "claims":{
+      "type":"array",
+      "items":{
+        "type":"object",
+        "properties":{
+          "claim_id":{"type":"string"},
+          "text":{"type":"string"},
+          "claim_type":{"type":"string"}
+        }
+      }
+    },
+
+    "evidence":{
+      "type":"array",
+      "items":{
+        "type":"object",
+        "properties":{
+          "evidence_id":{"type":"string"},
+          "source":{"type":"string"},
+          "summary":{"type":"string"}
+        }
+      }
+    },
+
+    "conflicts":{
+      "type":"array",
+      "items":{
+        "type":"object",
+        "properties":{
+          "conflict_id":{"type":"string"},
+          "severity":{"type":"string"}
+        }
+      }
+    },
+
+    "decisions":{
+      "type":"array",
+      "items":{
+        "type":"object",
+        "properties":{
+          "decision_id":{"type":"string"},
+          "rationale":{"type":"string"}
+        }
+      }
+    },
+
+    "final_answer":{"type":"string"},
+
+    "confidence":{
+      "type":"object",
+      "properties":{
+        "score":{"type":"number"}
+      }
+    },
+
+    "metrics":{
+      "type":"object",
+      "properties":{
+        "latency_ms":{"type":"integer"},
+        "total_tokens":{"type":"integer"},
+        "cost_usd":{"type":"number"}
+      }
+    },
+
+    "status":{"type":"string"}
+  }
+}

@@ -1,0 +1,30 @@
+{
+ "version":"v1",
+ "routing":[
+  {
+   "task":"dialogue",
+   "provider":"openai",
+   "model":"gpt-5.4"
+  },
+  {
+   "task":"code",
+   "provider":"openai",
+   "model":"gpt-5.3-codex"
+  },
+  {
+   "task":"reasoning",
+   "provider":"anthropic",
+   "model":"claude-opus-4-6"
+  },
+  {
+   "task":"research",
+   "provider":"perplexity",
+   "model":"perplexity-pro"
+  },
+  {
+   "task":"analysis",
+   "provider":"google",
+   "model":"gemini-3.1-pro-preview"
+  }
+ ]
+}

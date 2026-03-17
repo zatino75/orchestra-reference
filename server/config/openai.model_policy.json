@@ -1,0 +1,23 @@
+{
+  "defaultTask": "dialogue",
+  "allowModelOverride": true,
+  "tasks": {
+    "reasoning": [
+      "gpt-5.2",
+      "gpt-5.2-pro"
+    ],
+    "dialogue": [
+      "gpt-5.2-chat-latest",
+      "gpt-5.2"
+    ],
+    "evidence": [
+      "gpt-5.2-pro",
+      "gpt-5.2"
+    ],
+    "code": [
+      "gpt-5.2-codex",
+      "gpt-5.2"
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,41 @@
+[
+  {
+    "run": 1,
+    "outDir": "C:\\Users\\User\\Desktop\\orchestra\\ui\\ops\\bench_split_out_20260218_184746",
+    "conflict_orch_window_judgeApplied_total": 50,
+    "conflict_single_window_judgeApplied_total": 0,
+    "conflict_window_conflict_total": 50.0,
+    "conflict_judgeApplied_raw": 71.0,
+    "normal_orch_window_judgeApplied_total": 0,
+    "normal_window_conflict_total": 0.0,
+    "PASS_conflict": true,
+    "PASS_normal": true,
+    "PASS_all": true
+  },
+  {
+    "run": 2,
+    "outDir": "C:\\Users\\User\\Desktop\\orchestra\\ui\\ops\\bench_split_out_20260218_184748",
+    "conflict_orch_window_judgeApplied_total": 50,
+    "conflict_single_window_judgeApplied_total": 0,
+    "conflict_window_conflict_total": 50.0,
+    "conflict_judgeApplied_raw": 71.0,
+    "normal_orch_window_judgeApplied_total": 0,
+    "normal_window_conflict_total": 0.0,
+    "PASS_conflict": true,
+    "PASS_normal": true,
+    "PASS_all": true
+  },
+  {
+    "run": 3,
+    "outDir": "C:\\Users\\User\\Desktop\\orchestra\\ui\\ops\\bench_split_out_20260218_184750",
+    "conflict_orch_window_judgeApplied_total": 50,
+    "conflict_single_window_judgeApplied_total": 0,
+    "conflict_window_conflict_total": 50.0,
+    "conflict_judgeApplied_raw": 71.0,
+    "normal_orch_window_judgeApplied_total": 0,
+    "normal_window_conflict_total": 0.0,
+    "PASS_conflict": true,
+    "PASS_normal": true,
+    "PASS_all": true
+  }
+]

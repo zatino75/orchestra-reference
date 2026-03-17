@@ -1,0 +1,440 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-orchestra.local/schemas/execution-engine.schema.v1.json",
+  "title": "AI Orchestra Execution Engine v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "job_id",
+    "plan_id",
+    "request_id",
+    "project_id",
+    "thread_id",
+    "execution_strategy",
+    "units",
+    "global_policy",
+    "state"
+  ],
+  "properties": {
+    "job_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "plan_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "request_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "thread_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "execution_strategy": {
+      "type": "string",
+      "enum": [
+        "single",
+        "parallel",
+        "staged_parallel",
+        "sequential",
+        "retrieval_then_reason",
+        "retrieve_verify_judge"
+      ]
+    },
+    "units": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/execution_unit"
+      }
+    },
+    "global_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_parallel_units",
+        "default_timeout_ms",
+        "retry_policy",
+        "fallback_policy",
+        "partial_result_policy"
+      ],
+      "properties": {
+        "max_parallel_units": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "default_timeout_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "retry_policy": {
+          "$ref": "#/$defs/retry_policy"
+        },
+        "fallback_policy": {
+          "$ref": "#/$defs/fallback_policy"
+        },
+        "partial_result_policy": {
+          "type": "string",
+          "enum": [
+            "allow",
+            "deny",
+            "allow_with_flag"
+          ]
+        }
+      }
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "running",
+        "success",
+        "partial_success",
+        "failed",
+        "cancelled",
+        "timeout"
+      ]
+    }
+  },
+  "$defs": {
+    "execution_unit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit_id",
+        "name",
+        "task_type",
+        "role",
+        "mode",
+        "depends_on",
+        "inputs",
+        "routing",
+        "runtime_policy",
+        "status"
+      ],
+      "properties": {
+        "unit_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "task_type": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "planner",
+            "executor",
+            "retriever",
+            "researcher",
+            "coder",
+            "designer",
+            "claim_extractor",
+            "verifier",
+            "judge",
+            "finalizer"
+          ]
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "single",
+            "parallel",
+            "sequential",
+            "retrieval",
+            "verification",
+            "judge",
+            "artifact_generation"
+          ]
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "input_refs",
+            "user_prompt_fragment"
+          ],
+          "properties": {
+            "input_refs": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "user_prompt_fragment": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "memory_refs": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "artifact_refs": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "routing": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "selection_mode",
+            "candidate_providers",
+            "selected_provider",
+            "selected_model"
+          ],
+          "properties": {
+            "selection_mode": {
+              "type": "string",
+              "enum": [
+                "fixed",
+                "dynamic",
+                "scoreboard_driven",
+                "fallback"
+              ]
+            },
+            "candidate_providers": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "openai",
+                  "anthropic",
+                  "google",
+                  "perplexity",
+                  "runway",
+                  "midjourney",
+                  "internal"
+                ]
+              }
+            },
+            "selected_provider": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "selected_model": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "runtime_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "timeout_ms",
+            "max_attempts",
+            "allow_partial",
+            "require_judge",
+            "require_verification"
+          ],
+          "properties": {
+            "timeout_ms": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "max_attempts": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "allow_partial": {
+              "type": "boolean"
+            },
+            "require_judge": {
+              "type": "boolean"
+            },
+            "require_verification": {
+              "type": "boolean"
+            }
+          }
+        },
+        "status": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "state",
+            "attempt_count"
+          ],
+          "properties": {
+            "state": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "queued",
+                "running",
+                "success",
+                "partial_success",
+                "failed",
+                "skipped",
+                "timeout",
+                "cancelled"
+              ]
+            },
+            "attempt_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "started_at": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time"
+            },
+            "completed_at": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time"
+            },
+            "error": {
+              "$ref": "#/$defs/error_state"
+            }
+          }
+        },
+        "outputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "raw_output_ref": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "claims_ref": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "evidence_ref": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "conflicts_ref": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "decision_ref": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "artifact_ref": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "retry_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_attempts",
+        "retry_on"
+      ],
+      "properties": {
+        "max_attempts": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "retry_on": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "timeout",
+              "rate_limit",
+              "transient_network_error",
+              "provider_unavailable"
+            ]
+          }
+        }
+      }
+    },
+    "fallback_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enabled",
+        "fallback_order"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "fallback_order": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "error_state": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message",
+        "retryable"
+      ],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "retryable": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
